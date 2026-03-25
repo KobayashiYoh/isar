@@ -216,7 +216,8 @@ class IsarAnalyzer {
             dartType.isDartCoreList ? IsarType.intList : IsarType.int;
 
         enumMap = {
-          for (var i = 0; i < enumElements.length; i++) enumElements[i].name!: i,
+          for (var i = 0; i < enumElements.length; i++)
+            enumElements[i].name!: i,
         };
         enumPropertyName = 'index';
       } else if (enumeratedAnn.type == EnumType.name) {
@@ -296,8 +297,8 @@ class IsarAnalyzer {
       err('Bytes must not be nullable.', property);
     }
 
-    final constructorParameter =
-        constructor.formalParameters.firstOrNullWhere((p) => p.name == property.name);
+    final constructorParameter = constructor.formalParameters
+        .firstOrNullWhere((p) => p.name == property.name);
     int? constructorPosition;
     late PropertyDeser deserialize;
     if (constructorParameter != null) {
