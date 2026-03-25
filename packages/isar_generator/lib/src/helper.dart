@@ -5,20 +5,20 @@ import 'package:dartx/dartx.dart';
 import 'package:isar/isar.dart';
 import 'package:source_gen/source_gen.dart';
 
-const TypeChecker _collectionChecker = TypeChecker.fromRuntime(Collection);
-const TypeChecker _enumeratedChecker = TypeChecker.fromRuntime(Enumerated);
-const TypeChecker _embeddedChecker = TypeChecker.fromRuntime(Embedded);
-const TypeChecker _ignoreChecker = TypeChecker.fromRuntime(Ignore);
-const TypeChecker _nameChecker = TypeChecker.fromRuntime(Name);
-const TypeChecker _indexChecker = TypeChecker.fromRuntime(Index);
-const TypeChecker _backlinkChecker = TypeChecker.fromRuntime(Backlink);
+final _collectionChecker = TypeChecker.fromUrl('package:isar/isar.dart#Collection');
+final _enumeratedChecker = TypeChecker.fromUrl('package:isar/isar.dart#Enumerated');
+final _embeddedChecker = TypeChecker.fromUrl('package:isar/isar.dart#Embedded');
+final _ignoreChecker = TypeChecker.fromUrl('package:isar/isar.dart#Ignore');
+final _nameChecker = TypeChecker.fromUrl('package:isar/isar.dart#Name');
+final _indexChecker = TypeChecker.fromUrl('package:isar/isar.dart#Index');
+final _backlinkChecker = TypeChecker.fromUrl('package:isar/isar.dart#Backlink');
 
 extension ClassElementX on ClassElement {
   bool get hasZeroArgsConstructor {
     return constructors.any(
       (ConstructorElement c) =>
           c.isPublic &&
-          !c.parameters.any((ParameterElement p) => !p.isOptional),
+          !c.formalParameters.any((p) => !p.isOptional),
     );
   }
 
@@ -26,11 +26,11 @@ extension ClassElementX on ClassElement {
     final ignoreFields =
         collectionAnnotation?.ignore ?? embeddedAnnotation!.ignore;
     return [
-      ...accessors.mapNotNull((e) => e.variable),
+      ...fields,
       if (collectionAnnotation?.inheritance ?? embeddedAnnotation!.inheritance)
         for (InterfaceType supertype in allSupertypes) ...[
           if (!supertype.isDartCoreObject)
-            ...supertype.accessors.mapNotNull((e) => e.variable)
+            ...supertype.element.fields
         ]
     ]
         .where(
@@ -40,19 +40,19 @@ extension ClassElementX on ClassElement {
               !_ignoreChecker.hasAnnotationOf(e.nonSynthetic) &&
               !ignoreFields.contains(e.name),
         )
-        .distinctBy((e) => e.name)
+        .distinctBy((e) => e.name!)
         .toList();
   }
 
   List<String> get enumConsts {
-    return fields.where((e) => e.isEnumConstant).map((e) => e.name).toList();
+    return fields.where((e) => e.isEnumConstant).map((e) => e.name!).toList();
   }
 }
 
 extension PropertyElementX on PropertyInducingElement {
-  bool get isLink => type.element2!.name == 'IsarLink';
+  bool get isLink => type.element!.name == 'IsarLink';
 
-  bool get isLinks => type.element2!.name == 'IsarLinks';
+  bool get isLinks => type.element!.name == 'IsarLinks';
 
   Enumerated? get enumeratedAnnotation {
     final ann = _enumeratedChecker.firstAnnotationOfExact(nonSynthetic);
