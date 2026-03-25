@@ -12,10 +12,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  isar: 
+  isar:
     git:
-      url: https://github.com/hamidhandid/isar
-      ref: 3.1.8-fixed
+      url: https://github.com/KobayashiYoh/isar
+      ref: fix-dependencies-3.1.8-for-flutter-3.38.9
       path: packages/isar
 
 flutter:
