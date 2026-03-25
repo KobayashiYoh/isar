@@ -959,7 +959,6 @@ void _buildConditionStringOp({
       throw IsarError('String operation value must not be null');
     }
 
-    // ignore: missing_enum_constant_in_switch
     switch (conditionType) {
       case FilterConditionType.startsWith:
         nCall(
@@ -1009,6 +1008,16 @@ void _buildConditionStringOp({
           ),
         );
         break;
+      case FilterConditionType.equalTo:
+      case FilterConditionType.greaterThan:
+      case FilterConditionType.lessThan:
+      case FilterConditionType.between:
+      case FilterConditionType.isNull:
+      case FilterConditionType.isNotNull:
+      case FilterConditionType.elementIsNull:
+      case FilterConditionType.elementIsNotNull:
+      case FilterConditionType.listLength:
+        throw IsarError('Unsupported string operation: $conditionType');
     }
   } else {
     throw IsarError('Unsupported type for condition');
