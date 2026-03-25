@@ -20,7 +20,7 @@ class Message {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other is Message) {
       return other.message == message;
     } else {
