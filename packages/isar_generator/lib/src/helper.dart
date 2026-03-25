@@ -5,13 +5,13 @@ import 'package:dartx/dartx.dart';
 import 'package:isar/isar.dart';
 import 'package:source_gen/source_gen.dart';
 
-final _collectionChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Collection');
-final _enumeratedChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Enumerated');
-final _embeddedChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Embedded');
-final _ignoreChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Ignore');
-final _nameChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Name');
-final _indexChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Index');
-final _backlinkChecker = const TypeChecker.fromUrl('package:isar/isar.dart#Backlink');
+const _collectionChecker = TypeChecker.fromUrl('package:isar/isar.dart#Collection');
+const _enumeratedChecker = TypeChecker.fromUrl('package:isar/isar.dart#Enumerated');
+const _embeddedChecker = TypeChecker.fromUrl('package:isar/isar.dart#Embedded');
+const _ignoreChecker = TypeChecker.fromUrl('package:isar/isar.dart#Ignore');
+const _nameChecker = TypeChecker.fromUrl('package:isar/isar.dart#Name');
+const _indexChecker = TypeChecker.fromUrl('package:isar/isar.dart#Index');
+const _backlinkChecker = TypeChecker.fromUrl('package:isar/isar.dart#Backlink');
 
 extension ClassElementX on ClassElement {
   bool get hasZeroArgsConstructor {
