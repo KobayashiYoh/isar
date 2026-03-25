@@ -150,7 +150,8 @@ class IsarAnalyzer {
       );
     }
 
-    final unknownConstructorParameter = constructor.formalParameters.firstOrNullWhere(
+    final unknownConstructorParameter =
+        constructor.formalParameters.firstOrNullWhere(
       (p) => p.isRequired && properties.none((e) => e.dartName == p.name),
     );
     if (unknownConstructorParameter != null) {
@@ -203,13 +204,16 @@ class IsarAnalyzer {
       defaultEnumElement = '${enumClass.name}.${enumElements.first.name}';
 
       if (enumeratedAnn.type == EnumType.ordinal) {
-        isarType = dartType.isDartCoreList ? IsarType.byteList : IsarType.byte;
+        isarType =
+            dartType.isDartCoreList ? IsarType.byteList : IsarType.byte;
         enumMap = {
-          for (var i = 0; i < enumElements.length; i++) enumElements[i].name!: i,
+          for (var i = 0; i < enumElements.length; i++)
+            enumElements[i].name!: i,
         };
         enumPropertyName = 'index';
       } else if (enumeratedAnn.type == EnumType.ordinal32) {
-        isarType = dartType.isDartCoreList ? IsarType.intList : IsarType.int;
+        isarType =
+            dartType.isDartCoreList ? IsarType.intList : IsarType.int;
 
         enumMap = {
           for (var i = 0; i < enumElements.length; i++) enumElements[i].name!: i,
