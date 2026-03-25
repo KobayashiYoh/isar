@@ -117,8 +117,9 @@ class IsarAnalyzer {
       err('Class must be public.', modelClass);
     }
 
-    final constructor = modelClass.constructors
-        .firstOrNullWhere((ConstructorElement c) => c.name?.isEmpty ?? true);
+    final constructor = modelClass.constructors.firstOrNullWhere(
+      (ConstructorElement c) => c.name == '' || c.name == 'new',
+    );
     if (constructor == null) {
       err('Class needs an unnamed constructor.', modelClass);
     }
