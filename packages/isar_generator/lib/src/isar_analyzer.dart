@@ -118,7 +118,7 @@ class IsarAnalyzer {
     }
 
     final constructor = modelClass.constructors.firstOrNullWhere(
-      (ConstructorElement c) => c.name == '' || c.name == 'new',
+      (c) => c.name == '' || c.name == 'new',
     );
     if (constructor == null) {
       err('Class needs an unnamed constructor.', modelClass);
