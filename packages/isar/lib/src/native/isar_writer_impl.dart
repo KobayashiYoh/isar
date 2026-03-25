@@ -275,7 +275,7 @@ class IsarWriterImpl implements IsarWriter {
 extension IsarBoolValue on bool? {
   @pragma('vm:prefer-inline')
   int get byteValue =>
-      this == null ? nullBool : (this == true ? trueBool : falseBool);
+      this == null ? nullBool : ((this ?? false) ? trueBool : falseBool);
 }
 
 extension IsarDateTimeValue on DateTime? {
