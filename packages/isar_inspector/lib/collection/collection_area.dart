@@ -264,10 +264,12 @@ class _CollectionAreaState extends State<CollectionArea> {
       }
       await widget.client.importJson(widget.instance, widget.collection, json);
     } on PlatformException {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Could not access clipboard.')),
       );
     } on FormatException {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Invalid JSON in clipboard.')),
       );
