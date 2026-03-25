@@ -219,7 +219,7 @@ class IsarAnalyzer {
         isarType =
             dartType.isDartCoreList ? IsarType.stringList : IsarType.string;
         enumMap = {
-          for (final value in enumElements) value.name!: value.name!,
+          for (final value in enumElements) value.name!: value.name,
         };
         enumPropertyName = 'name';
       } else {
