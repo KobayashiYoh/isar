@@ -78,7 +78,7 @@ class _PropertyBuilderState extends State<PropertyBuilder> {
                     widget.type,
                     style: TextStyle(
                       color:
-                          theme.colorScheme.onPrimaryContainer.withOpacity(0.5),
+                          theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
                     ),
                   ),
               ],
