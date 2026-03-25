@@ -13,7 +13,7 @@ class EmptyConstructorModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is EmptyConstructorModel &&
         other.id == id &&
         other.name == name;
@@ -29,7 +29,7 @@ class NamedConstructorModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is NamedConstructorModel &&
         other.id == id &&
         other.name == name;
@@ -45,7 +45,7 @@ class PositionalConstructorModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is PositionalConstructorModel &&
         other.id == id &&
         other.name == name;
@@ -64,7 +64,7 @@ class OptionalConstructorModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is OptionalConstructorModel &&
         other.id == id &&
         other.name == name;
@@ -80,7 +80,7 @@ class PositionalNamedConstructorModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is PositionalNamedConstructorModel &&
         other.id == id &&
         other.name == name;
@@ -98,7 +98,7 @@ class SerializeOnlyModel {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is SerializeOnlyModel && other.id == id;
   }
 }

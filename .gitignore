@@ -62,3 +62,6 @@ build/
 
 # Coverage
 coverage/
+
+# Rust build artifacts
+target/

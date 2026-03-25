@@ -62,7 +62,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
   List<OBJ> deserializeObjects(CObjectSet objectSet) {
     final objects = <OBJ>[];
     for (var i = 0; i < objectSet.length; i++) {
-      final cObjPtr = objectSet.objects.elementAt(i);
+      final cObjPtr = objectSet.objects + i;
       final object = deserializeObject(cObjPtr.ref);
       objects.add(object);
     }
@@ -73,7 +73,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
   List<OBJ?> deserializeObjectsOrNull(CObjectSet objectSet) {
     final objects = List<OBJ?>.filled(objectSet.length, null);
     for (var i = 0; i < objectSet.length; i++) {
-      final cObj = objectSet.objects.elementAt(i).ref;
+      final cObj = (objectSet.objects + i).ref;
       if (!cObj.buffer.isNull) {
         objects[i] = deserializeObject(cObj);
       }
@@ -99,7 +99,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
     if (propertyId != null) {
       final propertyOffset = _offsets[propertyId];
       for (var i = 0; i < objectSet.length; i++) {
-        final cObj = objectSet.objects.elementAt(i).ref;
+        final cObj = (objectSet.objects + i).ref;
         final buffer = cObj.buffer.asTypedList(cObj.buffer_length);
         values.add(
           schema.deserializeProp(
@@ -112,7 +112,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       }
     } else {
       for (var i = 0; i < objectSet.length; i++) {
-        final cObj = objectSet.objects.elementAt(i).ref;
+        final cObj = (objectSet.objects + i).ref;
         values.add(cObj.id as T);
       }
     }
@@ -146,9 +146,9 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       );
       final size = binaryWriter.usedBytes;
 
-      final cObj = objectsPtr.elementAt(i).ref;
+      final cObj = (objectsPtr + i).ref;
       cObj.id = schema.getId(object);
-      cObj.buffer = bufferPtr.elementAt(writtenBytes);
+      cObj.buffer = bufferPtr + writtenBytes;
       cObj.buffer_length = size;
 
       writtenBytes += size;
@@ -161,7 +161,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       final cObjSetPtr = txn.newCObjectSet(ids.length);
       final objectsPtr = cObjSetPtr.ref.objects;
       for (var i = 0; i < ids.length; i++) {
-        objectsPtr.elementAt(i).ref.id = ids[i];
+        (objectsPtr + i).ref.id = ids[i];
       }
       IC.isar_get_all(ptr, txn.ptr, cObjSetPtr);
       await txn.wait();
@@ -315,7 +315,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       final cObjectSet = cObjSetPtr.ref;
       final ids = List<int>.filled(objects.length, 0);
       for (var i = 0; i < objects.length; i++) {
-        final cObjPtr = cObjectSet.objects.elementAt(i);
+        final cObjPtr = cObjectSet.objects + i;
         final id = cObjPtr.ref.id;
         ids[i] = id;
 

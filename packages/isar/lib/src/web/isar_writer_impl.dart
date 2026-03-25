@@ -13,11 +13,9 @@ class IsarWriterImpl implements IsarWriter {
   @tryInline
   @override
   void writeBool(int offset, bool? value) {
-    final number = value == true
-        ? 1
-        : value == false
-            ? 0
-            : nullNumber;
+    final number = value == null
+        ? nullNumber
+        : (value ? 1 : 0);
     setProperty(object, offset, number);
   }
 
@@ -94,11 +92,9 @@ class IsarWriterImpl implements IsarWriter {
   void writeBoolList(int offset, List<bool?>? values) {
     final list = values
         ?.map(
-          (e) => e == false
-              ? 0
-              : e == true
-                  ? 1
-                  : nullNumber,
+          (e) => e == null
+              ? nullNumber
+              : (e ? 1 : 0),
         )
         .toList();
     setProperty(object, offset, list ?? nullNumber);

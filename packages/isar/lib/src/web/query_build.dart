@@ -220,7 +220,7 @@ String _buildCondition(
   CollectionSchema<dynamic> schema,
   FilterCondition condition,
 ) {
-  dynamic _prepareFilterValue(dynamic value) {
+  dynamic prepareFilterValue(dynamic value) {
     if (value == null) {
       return null;
     } else if (value is String) {
@@ -240,9 +240,9 @@ String _buildCondition(
   final cond = _buildConditionInternal(
     conditionType: condition.type,
     variable: variable,
-    val1: _prepareFilterValue(condition.value1),
+    val1: prepareFilterValue(condition.value1),
     include1: condition.include1,
-    val2: _prepareFilterValue(condition.value2),
+    val2: prepareFilterValue(condition.value2),
     include2: condition.include2,
     caseSensitive: condition.caseSensitive,
   );

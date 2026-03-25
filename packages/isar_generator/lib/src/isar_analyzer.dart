@@ -62,7 +62,7 @@ class IsarAnalyzer {
     final constructor = _checkValidClass(element);
     final modelClass = element as ClassElement;
 
-    if (constructor.parameters.any((e) => e.isRequired)) {
+    if (constructor.formalParameters.any((e) => e.isRequired)) {
       err(
         'Constructors of embedded objects must not have required parameters.',
         constructor,
@@ -117,8 +117,9 @@ class IsarAnalyzer {
       err('Class must be public.', modelClass);
     }
 
-    final constructor = modelClass.constructors
-        .firstOrNullWhere((ConstructorElement c) => c.periodOffset == null);
+    final constructor = modelClass.constructors.firstOrNullWhere(
+      (c) => c.name == '' || c.name == 'new',
+    );
     if (constructor == null) {
       err('Class needs an unnamed constructor.', modelClass);
     }
@@ -150,7 +151,8 @@ class IsarAnalyzer {
       );
     }
 
-    final unknownConstructorParameter = constructor.parameters.firstOrNullWhere(
+    final unknownConstructorParameter =
+        constructor.formalParameters.firstOrNullWhere(
       (p) => p.isRequired && properties.none((e) => e.dartName == p.name),
     );
     if (unknownConstructorParameter != null) {
@@ -162,21 +164,21 @@ class IsarAnalyzer {
   }
 
   Map<String, String> _getEmbeddedDartNames(ClassElement element) {
-    void _fillNames(Map<String, String> names, ClassElement element) {
+    void fillNames(Map<String, String> names, ClassElement element) {
       for (final property in element.allAccessors) {
         final type = property.type.scalarType.element;
         if (type is ClassElement && type.embeddedAnnotation != null) {
           final isarName = type.isarName;
           if (!names.containsKey(isarName)) {
             names[type.isarName] = type.displayName;
-            _fillNames(names, type);
+            fillNames(names, type);
           }
         }
       }
     }
 
     final names = <String, String>{};
-    _fillNames(names, element);
+    fillNames(names, element);
     return names;
   }
 
@@ -203,23 +205,27 @@ class IsarAnalyzer {
       defaultEnumElement = '${enumClass.name}.${enumElements.first.name}';
 
       if (enumeratedAnn.type == EnumType.ordinal) {
-        isarType = dartType.isDartCoreList ? IsarType.byteList : IsarType.byte;
+        isarType =
+            dartType.isDartCoreList ? IsarType.byteList : IsarType.byte;
         enumMap = {
-          for (var i = 0; i < enumElements.length; i++) enumElements[i].name: i,
+          for (var i = 0; i < enumElements.length; i++)
+            enumElements[i].name!: i,
         };
         enumPropertyName = 'index';
       } else if (enumeratedAnn.type == EnumType.ordinal32) {
-        isarType = dartType.isDartCoreList ? IsarType.intList : IsarType.int;
+        isarType =
+            dartType.isDartCoreList ? IsarType.intList : IsarType.int;
 
         enumMap = {
-          for (var i = 0; i < enumElements.length; i++) enumElements[i].name: i,
+          for (var i = 0; i < enumElements.length; i++)
+            enumElements[i].name!: i,
         };
         enumPropertyName = 'index';
       } else if (enumeratedAnn.type == EnumType.name) {
         isarType =
             dartType.isDartCoreList ? IsarType.stringList : IsarType.string;
         enumMap = {
-          for (final value in enumElements) value.name: value.name,
+          for (final value in enumElements) value.name!: value.name,
         };
         enumPropertyName = 'name';
       } else {
@@ -269,7 +275,7 @@ class IsarAnalyzer {
               enumProperty,
             );
           }
-          enumMap[element.name] = propertyValue;
+          enumMap[element.name!] = propertyValue;
         }
       }
     } else {
@@ -292,8 +298,8 @@ class IsarAnalyzer {
       err('Bytes must not be nullable.', property);
     }
 
-    final constructorParameter =
-        constructor.parameters.firstOrNullWhere((p) => p.name == property.name);
+    final constructorParameter = constructor.formalParameters
+        .firstOrNullWhere((p) => p.name == property.name);
     int? constructorPosition;
     late PropertyDeser deserialize;
     if (constructorParameter != null) {
@@ -307,7 +313,7 @@ class IsarAnalyzer {
           ? PropertyDeser.namedParam
           : PropertyDeser.positionalParam;
       constructorPosition =
-          constructor.parameters.indexOf(constructorParameter);
+          constructor.formalParameters.indexOf(constructorParameter);
     } else {
       deserialize =
           property.setter == null ? PropertyDeser.none : PropertyDeser.assign;

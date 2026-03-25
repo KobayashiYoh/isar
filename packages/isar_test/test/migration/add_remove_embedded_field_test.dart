@@ -19,7 +19,6 @@ class Col1 {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Col1{id: $id, value: $value}';
   }
 }
@@ -37,7 +36,6 @@ class Embedded1 {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Embedded1{value: $value}';
   }
 }
@@ -57,7 +55,6 @@ class Col2 {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Col2{id: $id, value: $value}';
   }
 }
@@ -78,7 +75,6 @@ class Embedded2 {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Embedded2{newValue: $newValue, value: $value}';
   }
 }

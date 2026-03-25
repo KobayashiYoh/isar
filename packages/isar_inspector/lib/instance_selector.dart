@@ -63,7 +63,7 @@ class _InstanceSelectorState extends State<InstanceSelector>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 10),
-                    for (var instance in widget.instances)
+                    for (final instance in widget.instances)
                       if (instance != widget.selectedInstance)
                         InstanceButton(
                           instance: instance,
@@ -166,7 +166,7 @@ class SelectedInstanceButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Row(
               children: [
-                Icon(
+                FaIcon(
                   FontAwesomeIcons.database,
                   size: 25,
                   color: theme.colorScheme.onSecondaryContainer,
@@ -194,14 +194,14 @@ class SelectedInstanceButton extends StatelessWidget {
                 ),
                 const Spacer(),
                 if (hasMultiple)
-                  Column(
+                  const Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(
+                    children: [
+                      FaIcon(
                         FontAwesomeIcons.chevronUp,
                         size: 12,
                       ),
-                      Icon(
+                      FaIcon(
                         FontAwesomeIcons.chevronDown,
                         size: 12,
                       ),

@@ -18,7 +18,7 @@ class Model {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is Model && other.id == id && other.value == value;
   }
 }
