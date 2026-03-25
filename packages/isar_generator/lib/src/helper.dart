@@ -28,7 +28,7 @@ extension ClassElementX on ClassElement {
     return [
       ...fields,
       if (collectionAnnotation?.inheritance ?? embeddedAnnotation!.inheritance)
-        for (InterfaceType supertype in allSupertypes) ...[
+        for (final supertype in allSupertypes) ...[
           if (!supertype.isDartCoreObject)
             ...supertype.element.fields
         ]

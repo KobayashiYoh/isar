@@ -63,7 +63,7 @@ class _InstanceSelectorState extends State<InstanceSelector>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 10),
-                    for (var instance in widget.instances)
+                    for (final instance in widget.instances)
                       if (instance != widget.selectedInstance)
                         InstanceButton(
                           instance: instance,
