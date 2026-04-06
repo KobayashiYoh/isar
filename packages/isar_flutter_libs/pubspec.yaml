@@ -6,17 +6,14 @@ homepage: https://isar.dev
 publish_to: none
 
 environment:
-  sdk: ">=3.10.8 <4.0.0"
-  flutter: ">=3.38.9"
+  sdk: ">=3.11.4 <4.0.0"
+  flutter: ">=3.41.6"
 
 dependencies:
   flutter:
     sdk: flutter
   isar:
-    git:
-      url: https://github.com/KobayashiYoh/isar
-      ref: fix-dependencies-3.1.8-for-flutter-3.38.9
-      path: packages/isar
+    path: ../isar
 
 flutter:
   plugin:
