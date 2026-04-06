@@ -1,3 +1,6 @@
+// ignore_for_file: experimental_member_use
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:isar/isar.dart';
 import 'package:isar_test/isar_test.dart';
 import 'package:test/test.dart';
