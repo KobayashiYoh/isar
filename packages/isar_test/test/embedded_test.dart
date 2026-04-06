@@ -1,4 +1,6 @@
 // ignore_for_file: hash_and_equals
+// ignore_for_file: experimental_member_use
+// ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:isar/isar.dart';
 import 'package:isar_test/isar_test.dart';
@@ -46,9 +48,7 @@ class EModel {
   bool operator ==(Object other) => other is EModel && other.value == value;
 
   Map<String, dynamic> toJson() {
-    return {
-      'value': value,
-    };
+    return {'value': value};
   }
 }
 
@@ -90,35 +90,22 @@ void main() {
       isar = await openTempIsar([ModelSchema]);
 
       allNull = Model(0, null, null, null);
-      simple = Model(
-        1,
-        EModel('hello'),
-        NModel(EModel('abc')),
-        [NModel(EModel('test'))],
-      );
+      simple = Model(1, EModel('hello'), NModel(EModel('abc')), [
+        NModel(EModel('test')),
+      ]);
       nested = Model(
         2,
         EModel('hello'),
         NModel(
           EModel('abc'),
-          NModel(
-            EModel('this is level2'),
-            NModel(null, null, []),
-            [
-              NModel(
-                EModel('i am part of a list'),
-                NModel(
-                  EModel('even deeper'),
-                  NModel(null, null, []),
-                  [],
-                ),
-              ),
-              null,
-              NModel(
-                EModel('hello'),
-              )
-            ],
-          ),
+          NModel(EModel('this is level2'), NModel(null, null, []), [
+            NModel(
+              EModel('i am part of a list'),
+              NModel(EModel('even deeper'), NModel(null, null, []), []),
+            ),
+            null,
+            NModel(EModel('hello')),
+          ]),
         ),
         [
           NModel(EModel('test')),
@@ -162,14 +149,11 @@ void main() {
         await isar.models.tPutAll([allNull, simple, nested]);
       });
 
-      expect(
-        await isar.models.where().exportJson(),
-        [
-          allNull.toJson(),
-          simple.toJson(),
-          nested.toJson(),
-        ],
-      );
+      expect(await isar.models.where().exportJson(), [
+        allNull.toJson(),
+        simple.toJson(),
+        nested.toJson(),
+      ]);
     });
   });
 }
