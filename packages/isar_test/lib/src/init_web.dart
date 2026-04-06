@@ -6,10 +6,10 @@ import 'package:isar/src/web/open.dart' as isar_web;
 import 'package:isar_test/src/isar_web_src.dart';
 
 @JS('eval')
-external void _eval(String code);
+external void _eval(JSString code);
 
 Future<void> init() async {
-  _eval(isarWebSrc);
+  _eval(isarWebSrc.toJS);
   // ignore: invalid_use_of_visible_for_testing_member
   isar_web.doNotInitializeIsarWeb();
 }
