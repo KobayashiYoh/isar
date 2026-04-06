@@ -65,6 +65,3 @@ coverage/
 
 # Rust build artifacts
 target/
-
-# FVM Version Cache
-.fvm/
