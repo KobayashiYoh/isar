@@ -13,10 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   isar:
-    git:
-      url: https://github.com/KobayashiYoh/isar
-      ref: fix-dependencies-3.1.8-for-flutter-3.41.6
-      path: packages/isar
+    path: ../isar
 
 flutter:
   plugin:

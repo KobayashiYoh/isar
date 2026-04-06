@@ -15,10 +15,7 @@ dependencies:
   dartx: ^1.1.0
   glob: ^2.0.2
   isar:
-    git:
-      url: https://github.com/KobayashiYoh/isar
-      ref: fix-dependencies-3.1.8-for-flutter-3.41.6
-      path: packages/isar
+    path: ../isar
   path: ^1.8.1
   source_gen: ">=4.0.0 <5.0.0"
   xxh3: ^1.0.1
