@@ -12,7 +12,7 @@ dependencies:
       url: https://github.com/clickup/clickup_fading_scroll
   flutter:
     sdk: flutter
-  flutter_svg: any
+  flutter_svg: ^2.3.0
   font_awesome_flutter: any
   go_router: ^5.0.0
   google_fonts: 6.1.0
