@@ -16,7 +16,7 @@ dependencies:
   ffi: ^2.2.0
 #  isar_test:
 #    path: ../isar_test
-  js: any
+  js: ^0.7.2
   meta: ^1.19.0
 
 dev_dependencies:
