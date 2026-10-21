@@ -18,7 +18,7 @@ dependencies:
     path: ../isar
   path: ^1.9.1
   source_gen: ">=4.0.0 <5.0.0"
-  xxh3: ^1.0.1
+  xxh3: ^1.2.0
 
 dev_dependencies:
   build_test: ^3.3.2
